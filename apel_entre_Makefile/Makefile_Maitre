@@ -1,0 +1,24 @@
+#Makefile MAITRE qui peut en appeller d'autre en exportant ces options
+#Exporte les regle dans le makefile a execute
+export CC=gcc
+export CFLAGS=-W -Wall -Werror -Wextra -ansi -pedantic
+export LDFLAG=
+#defini le repertoire du make a éxecuter
+HELLO_DIR=hello
+#defini le repertoire de l'executable
+EXEC=$(HELLO_DIR)/hello
+
+all: $(EXEC)
+
+#se rend dans le dossier hello defini avec HELLO_DIR et execute make
+$(EXEC):
+	@(cd $(HELLO_DIR) && $(MAKE))
+
+#indique que clean et fclean doit être executé même si fichier plus recent existe que les dépandences et comme clean n'a pas de depandence si un fichier existe du meme nom alors elle ne s'éxécuterai pas avec .phony si
+.PHONY: clean fclean $(EXEC)
+
+clean:
+	@(cd $(HELLO_DIR) && $(AMKE) $@)
+
+fclean: clean
+	@(cd $(HELLO_DIR) && $(MAKE) $@)

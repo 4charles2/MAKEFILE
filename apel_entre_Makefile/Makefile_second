@@ -1,0 +1,20 @@
+#MAkefile qui sera execute par le maitre
+EXEC=hello
+SRC= $(wildcard *.c)
+OBJ= $(SRC:.c=.o)
+
+all: $(EXEC)
+
+$(EXEC): $(OBJ)
+	@$(CC) -o $@ $^ $(LDFLAGS)
+
+%.o: %.c
+	@$(CC) -o $@ -c $< $(CFLAGS)
+
+.PHONY: clean fclean
+
+clean:
+	@rm -rf $(OBJ)
+
+fclean: clean
+	@rm -rf $(EXEC)
